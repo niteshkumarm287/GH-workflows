@@ -2,16 +2,18 @@
 name: Daily Repo Summary
 on:
   schedule:
-    - cron: '0 9 * * 1-5' # Runs every weekday morning
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch:
 engine: copilot
 permissions:
+  contents: read
   issues: read
   pull-requests: read
 safe-outputs:
+  github-token: ${{ secrets.COPILOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
   create-issue:
     title-prefix: "[Daily Sync] "
-    labels: [ automation ]
-    max: 1
+    labels: [status, automated]
 ---
 
 # Your Task
